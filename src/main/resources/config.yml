@@ -1,0 +1,10 @@
+# Thanks for choosing NameHistory! Simply change the info below.
+# Just setup your SQL information below.
+NameHistory:
+  MySQL:
+    Enabled: false
+    Server: Server Address eg.Localhost
+    Database: Place Database name here
+    User: Place User of MySQL Database here
+    Password: Place User password here
+    Table_Prefix: namehistory

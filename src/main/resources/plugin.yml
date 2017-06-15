@@ -1,0 +1,10 @@
+name: NameHistory
+main: com.minecats.cindyk.namehistory.NameHistory
+version: ${project.version}
+author: cindyk
+description: Tracks players names vs uuids
+commands:
+    history:
+        permissions: namehistory.command
+        description: returns the playernames and dates added and lastseen
+        usage: "Usage: /history [name/player/uuid] [playername/uuid]"
