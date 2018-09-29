@@ -101,10 +101,7 @@ public class NameHistory extends JavaPlugin implements CommandExecutor {
 
         if (!sender.hasPermission("namehistory.command"))
         {
-            if(sender instanceof Player)
-            {
-                sender.sendMessage("[NameHistory] You do not have permission to run this command.");
-            }
+			sender.sendMessage("[NameHistory] You do not have permission to run this command.");
             return true;
         }
         else
@@ -116,20 +113,20 @@ public class NameHistory extends JavaPlugin implements CommandExecutor {
                 switch(args[0])
                 {
                     case "name":
-                        plQueries.getNameInfo(args[1], (Player) sender);
+                        plQueries.getNameInfo(args[1], sender);
 
                     break;
 
                     case "player":
 
-                        if( getServer().getPlayer(args[1]) != null)
-                            plQueries.getPlayerInfo(getServer().getPlayer(args[1]), (Player) sender);
+                        if( getServer().getOfflinePlayer(args[1]) != null)
+                            plQueries.getPlayerInfo(getServer().getOfflinePlayer(args[1]), sender);
                         else
                             sender.sendMessage("Player " + args[1] + " has to be online for this query.");
                     break;
                     case "uuid":
 
-                        plQueries.getUUIDInfo(args[1], (Player) sender);
+                        plQueries.getUUIDInfo(args[1], sender);
                     break;
 
                 }
@@ -137,7 +134,7 @@ public class NameHistory extends JavaPlugin implements CommandExecutor {
             else
             {
                 sender.sendMessage("/history [name/player/uuid] [playername/uuid] ");
-                sender.sendMessage(" for player, the player has to be online. ");
+                sender.sendMessage(" for player, you might need to use the last name they joined the server with. ");
             }
 
         }
@@ -186,7 +183,7 @@ public class NameHistory extends JavaPlugin implements CommandExecutor {
             dataSource.setPort(3306);
             dataSource.setUser(this.getConfig().getString("NameHistory.MySQL.User"));
             dataSource.setPassword(this.getConfig().getString("NameHistory.MySQL.Password"));
-            pool = new MiniConnectionPoolManager(dataSource, 1);
+            pool = new MiniConnectionPoolManager(dataSource, 1, 5);
              getLogger().info("Connection pool ready");
 
     }
@@ -240,7 +237,7 @@ public class NameHistory extends JavaPlugin implements CommandExecutor {
             dataSource.setUser(getConfig().getString("NameHistory.MySQL.User"));
             dataSource.setPassword(getConfig().getString("NameHistory.MySQL.Password"));
 
-            pool = new MiniConnectionPoolManager(dataSource, 10);
+            pool = new MiniConnectionPoolManager(dataSource, 10, 5);
 
             con = pool.getValidConnection();
 			/*con = DriverManager.getConnection(

@@ -1,7 +1,8 @@
 package com.minecats.cindyk.namehistory;
 
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 
 import java.sql.*;
 
@@ -19,7 +20,7 @@ public class PlayerQueries {
 
     }
 
-    public void getNameInfo(String Name, Player pp)
+    public void getNameInfo(String Name, CommandSender pp)
     {
         String database = plugin.getConfig().getString("NameHistory.MySQL.Table_Prefix");
         Connection con = null;
@@ -65,7 +66,7 @@ public class PlayerQueries {
 
     }
 
-    public void getPlayerInfo( Player pp, Player requester)
+    public void getPlayerInfo( OfflinePlayer pp, CommandSender requester)
     {
         String database = plugin.getConfig().getString("NameHistory.MySQL.Table_Prefix");
         Connection con = null;
@@ -114,7 +115,7 @@ public class PlayerQueries {
 
     }
 
-    public void getUUIDInfo( String queryUUID, Player requester)
+    public void getUUIDInfo( String queryUUID, CommandSender requester)
     {
         String database = plugin.getConfig().getString("NameHistory.MySQL.Table_Prefix");
         Connection con = null;
