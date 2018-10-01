@@ -155,7 +155,8 @@ public class NameHistory extends JavaPlugin implements CommandExecutor {
                     connection = pool.getValidConnection();
                     /*connection =
 							DriverManager.getConnection("jdbc:MySQL://" + plugin.getConfig().getString("VoteSQL.MySQL.Server") + "/" + plugin.getConfig().getString("VoteSQL.MySQL.Database"), plugin.getConfig().getString("VoteSQL.MySQL.User"), plugin.getConfig().getString("VoteSQL.MySQL.Password"));*/					st = connection.createStatement();
-                    rs = st.executeUpdate("CREATE TABLE IF NOT EXISTS "
+                    st.setQueryTimeout(5000);
+					rs = st.executeUpdate("CREATE TABLE IF NOT EXISTS "
                             + this.getConfig().getString("NameHistory.MySQL.Table_Prefix")
                             + "( uuid VARCHAR(36) NOT NULL, playername VARCHAR(32), dateadded DATETIME, lastseen DATETIME, PRIMARY KEY (uuid,playername))");
                     this.getLogger().info("SQL database connected!");
@@ -183,6 +184,8 @@ public class NameHistory extends JavaPlugin implements CommandExecutor {
             dataSource.setPort(3306);
             dataSource.setUser(this.getConfig().getString("NameHistory.MySQL.User"));
             dataSource.setPassword(this.getConfig().getString("NameHistory.MySQL.Password"));
+			dataSource.setConnectTimeout(5000);
+			dataSource.setSocketTimeout(5000);
             pool = new MiniConnectionPoolManager(dataSource, 1, 5);
              getLogger().info("Connection pool ready");
 
@@ -236,6 +239,8 @@ public class NameHistory extends JavaPlugin implements CommandExecutor {
             dataSource.setPort(3306);
             dataSource.setUser(getConfig().getString("NameHistory.MySQL.User"));
             dataSource.setPassword(getConfig().getString("NameHistory.MySQL.Password"));
+			dataSource.setConnectTimeout(5000);
+			dataSource.setSocketTimeout(5000);
 
             pool = new MiniConnectionPoolManager(dataSource, 10, 5);
 
@@ -252,6 +257,7 @@ public class NameHistory extends JavaPlugin implements CommandExecutor {
 
             getLogger().info("Looking for UUID :  " + strUUID );
             uuidstmt = con.createStatement();
+			uuidstmt.setQueryTimeout(5000);
             if(uuidstmt.execute("SELECT * FROM " + database + " WHERE uuid = '" +strUUID+"'"))
             {
                 rs = uuidstmt.getResultSet();
@@ -304,6 +310,7 @@ public class NameHistory extends JavaPlugin implements CommandExecutor {
                     pst.setTimestamp(3, timestamp);
                     pst.setTimestamp(4, timestamp);
 
+					pst.setQueryTimeout(5000);
                     pst.executeUpdate();
                     getLogger().info("Inserted Player");
                     //System.out.print("inserted");

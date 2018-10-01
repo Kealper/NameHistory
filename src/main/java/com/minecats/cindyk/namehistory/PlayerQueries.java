@@ -29,13 +29,15 @@ public class PlayerQueries {
         try {
             con = DriverManager.getConnection(
                     "jdbc:MySQL://" +
-                            plugin.getConfig().getString("NameHistory.MySQL.Server") +
-                            "/" +
-                            plugin.getConfig().getString("NameHistory.MySQL.Database"),
-                    plugin.getConfig().getString("NameHistory.MySQL.User"),
-                    plugin.getConfig().getString("NameHistory.MySQL.Password"));
+					plugin.getConfig().getString("NameHistory.MySQL.Server") +
+					"/" + plugin.getConfig().getString("NameHistory.MySQL.Database") +
+					"?user=" + plugin.getConfig().getString("NameHistory.MySQL.User") +
+					"&password=" + plugin.getConfig().getString("NameHistory.MySQL.Password") +
+					"&socketTimeout=5000" +
+					"&connectTimeout=5000");
 
             stmt = con.createStatement();
+			stmt.setQueryTimeout(5000);
 
             rs = stmt.executeQuery("SELECT * FROM " + database + " WHERE playername = '" + Name + "' ORDER BY uuid;");
 
@@ -75,13 +77,15 @@ public class PlayerQueries {
         try {
             con = DriverManager.getConnection(
                     "jdbc:MySQL://" +
-                            plugin.getConfig().getString("NameHistory.MySQL.Server") +
-                            "/" +
-                            plugin.getConfig().getString("NameHistory.MySQL.Database"),
-                    plugin.getConfig().getString("NameHistory.MySQL.User"),
-                    plugin.getConfig().getString("NameHistory.MySQL.Password"));
+					plugin.getConfig().getString("NameHistory.MySQL.Server") +
+					"/" + plugin.getConfig().getString("NameHistory.MySQL.Database") +
+					"?user=" + plugin.getConfig().getString("NameHistory.MySQL.User") +
+					"&password=" + plugin.getConfig().getString("NameHistory.MySQL.Password") +
+					"&socketTimeout=5000" +
+					"&connectTimeout=5000");
 
             stmt = con.createStatement();
+			stmt.setQueryTimeout(5000);
 
             rs = stmt.executeQuery("SELECT * FROM " + database + " WHERE uuid = '" + pp.getUniqueId().toString() + "' ORDER BY lastseen DESC;");
 
@@ -124,13 +128,15 @@ public class PlayerQueries {
         try {
             con = DriverManager.getConnection(
                     "jdbc:MySQL://" +
-                            plugin.getConfig().getString("NameHistory.MySQL.Server") +
-                            "/" +
-                            plugin.getConfig().getString("NameHistory.MySQL.Database"),
-                    plugin.getConfig().getString("NameHistory.MySQL.User"),
-                    plugin.getConfig().getString("NameHistory.MySQL.Password"));
+					plugin.getConfig().getString("NameHistory.MySQL.Server") +
+					"/" + plugin.getConfig().getString("NameHistory.MySQL.Database") +
+					"?user=" + plugin.getConfig().getString("NameHistory.MySQL.User") +
+					"&password=" + plugin.getConfig().getString("NameHistory.MySQL.Password") +
+					"&socketTimeout=5000" +
+					"&connectTimeout=5000");
 
             stmt = con.createStatement();
+			stmt.setQueryTimeout(5000);
 
             rs = stmt.executeQuery("SELECT * FROM " + database + " WHERE uuid = '" + queryUUID + "' ORDER BY lastseen DESC;");
 
